@@ -21,7 +21,8 @@ public class Relatorio {
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+    ConverteData objConverte01 = new ConverteData();    
+    ConverteData objConverte02 = new ConverteData();
 
     
     //mÃ©todo para o relatÃ³rio de cidade
@@ -61,7 +62,24 @@ public class Relatorio {
         return rs;
     }
      
-     public ResultSet relatorioFuncionario() {
+      public ResultSet relatorioFuncionario(int idadeMinima, int idadeMaxima) {
+        String sql = "SELECT codFuncionario,nome,nascimento,salario, TIMESTAMPDIFF(year,nascimento,NOW()) AS idade FROM funcionario WHERE TIMESTAMPDIFF(YEAR, funcionario.nascimento, CURDATE()) BETWEEN ? AND ?;";
+        try {
+            PreparedStatement pst = Conexao.getPreparedStatement(sql);
+            pst.setInt(1, idadeMinima); // Defina o valor do primeiro parâmetro
+            pst.setInt(2, idadeMaxima); // Defina o valor do segundo parâmetro
+            ResultSet rs = pst.executeQuery();
+            System.out.println("idade minima: " + idadeMinima);
+            System.out.println("idade maxima: " + idadeMaxima);
+            return rs;
+        } catch (SQLException e) {
+            System.out.println("Erro de SQL: " + e.getMessage());
+            return null;
+        }        
+        
+    }
+     
+    /* public ResultSet relatorioFuncionario() {
         String sql = "SELECT codFuncionario,nome,salario FROM funcionario ;";
         ResultSet rs=null;
         try {
@@ -71,7 +89,7 @@ public class Relatorio {
             System.out.println("Erro de SQL: " + e.getMessage());
         }
         return rs;
-    }
+    } */
      
      public ResultSet relatorioMarca() {
         String sql = "SELECT codMarca, nome FROM marca;";

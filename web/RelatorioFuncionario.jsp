@@ -17,10 +17,17 @@
 
 
 <%
-    Relatorio rel = new Relatorio();
-    
+    String idadeMinima = request.getParameter("idadeMinima");
+    String idadeMaxima = request.getParameter("idadeMaxima");    
 
-  ResultSet rs = rel.relatorioFuncionario();
+
+    int idadeMinima1 = Integer.parseInt(idadeMinima);
+    int idadeMaxima2 = Integer.parseInt(idadeMaxima);
+    
+    
+    Relatorio rel = new Relatorio();
+    ResultSet rs = rel.relatorioFuncionario(idadeMinima1, idadeMaxima2);
+
                 if (rs.next()) {
                     rs.beforeFirst();
 

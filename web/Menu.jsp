@@ -150,8 +150,8 @@
                                 <ul class="dropdown-menu"> 
                                     <li><a  target="blank"href="RelatorioCategoria.jsp" class="dropdown-item text-dark">Relatorio Categoria</a></li> 
                                     <li><a target="blank"href="RelatorioCliente.jsp" class="dropdown-item text-dark">Relatorio Cliente</a></li> 
-                                    <li><a target="blank"href="RelatorioFornecedor.jsp" class="dropdown-item text-dark">Relatorio Fornecedor</a></li> 
-                                    <li><a target="blank"href="RelatorioFuncionario.jsp" class="dropdown-item text-dark">Relatorio Funcionario</a></li> 
+                                    <li><a target="blank"href="RelatorioFornecedor.jsp" class="dropdown-item text-dark " >Relatorio Fornecedor</a></li> 
+                                    <li><a target="blank"href="RelatorioFuncionario.jsp" class="dropdown-item text-dark" data-bs-toggle="modal" data-bs-target="#relatorioFuncionario">Relatorio Funcionario</a></li> 
                                     <li><a target="blank"href="RelatorioMarca.jsp" class="dropdown-item text-dark"> Relatorio Marca</a></li> 
                                     <li><a target="blank"href="RelatorioProduto.jsp" class="dropdown-item text-dark">Relatorio Produto</a></li> 
                                     <li><a target="blank"href="RelatorioTurno.jsp" class="dropdown-item text-dark">Relatorio Turnos</a></li> </ul> 
@@ -168,6 +168,30 @@
         </div>
     </div>
     
+    <div class="modal fade" id="relatorioFuncionario" tabindex="-1" aria-labelledby="relatorioFuncionarioLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary">
+                                <h5 class="modal-title fw-bold text-white" id="relatorioFuncionarioLabel">Relatório Personalizado (Funcionário)</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="RelatorioFuncionario.jsp" method="post">
+                                    <div class="mb-3">
+                                        <label for="idadeMinima" class="form-label">Idade Mínima:</label>
+                                        <input type="text" class="form-control" id="idadeMinima" name="idadeMinima">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="idadeMaxima" class="form-label">Idade Máxima:</label>
+                                        <input type="text" class="form-control" id="idadeMaxima" name="idadeMaxima">
+                                    </div>                    
+                                    <button type="submit" class="btn btn-primary mt-3 px-4 fw-bold">Gerar Relatório</button>                   
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </body>
 </html>
                              

@@ -4,11 +4,13 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT codFuncionario,nome,salario FROM funcionario ;]]>
+		<![CDATA[SELECT codFuncionario,nome,nascimento,salario, TIMESTAMPDIFF(year,nascimento,NOW()) AS idade FROM funcionario WHERE TIMESTAMPDIFF(YEAR, funcionario.nascimento, CURDATE()) BETWEEN ? AND ?;]]>
 	</queryString>
 	<field name="codFuncionario" class="java.lang.Integer"/>
 	<field name="nome" class="java.lang.String"/>
+	<field name="nascimento" class="java.sql.Date"/>
 	<field name="salario" class="java.lang.Double"/>
+	<field name="idade" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -58,7 +60,7 @@
 				<textElement>
 					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório Funcionário - Nome x Salário]]></text>
+				<text><![CDATA[Relatório Funcionário - Nome x Idade]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -82,6 +84,11 @@
 			<line>
 				<reportElement x="0" y="30" width="555" height="1"/>
 			</line>
+			<staticText>
+				<reportElement x="409" y="11" width="39" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Idade]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -92,7 +99,7 @@
 				<textFieldExpression><![CDATA[$F{codFuncionario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="126" y="0" width="322" height="20"/>
+				<reportElement x="126" y="0" width="203" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
@@ -100,6 +107,11 @@
 				<reportElement x="461" y="0" width="94" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{salario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="0" width="39" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nascimento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
