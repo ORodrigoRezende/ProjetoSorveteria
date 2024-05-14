@@ -37,7 +37,7 @@ public class Relatorio {
         }
         return rs;
     }
-    
+    /*
      public ResultSet relatorioCliente() {
         String sql = "SELECT codCliente, nome, endereco, telefone FROM clientes;";
         ResultSet rs=null;
@@ -48,6 +48,22 @@ public class Relatorio {
             System.out.println("Erro de SQL: " + e.getMessage());
         }
         return rs;
+    } */
+     public ResultSet relatorioCliente(int idadeMinima, int idadeMaxima) {
+        String sql = "SELECT codCliente, nome, dataNascimento,endereco,telefone, TIMESTAMPDIFF(year,dataNascimento,NOW()) AS idade FROM clientes AS c WHERE TIMESTAMPDIFF(YEAR, c.dataNascimento, CURDATE()) BETWEEN ? AND ?;";
+        try {
+            PreparedStatement pst = Conexao.getPreparedStatement(sql);
+            pst.setInt(1, idadeMinima); // Defina o valor do primeiro parâmetro
+            pst.setInt(2, idadeMaxima); // Defina o valor do segundo parâmetro
+            ResultSet rs = pst.executeQuery();
+            System.out.println("idade minima: " + idadeMinima);
+            System.out.println("idade maxima: " + idadeMaxima);
+            return rs;
+        } catch (SQLException e) {
+            System.out.println("Erro de SQL: " + e.getMessage());
+            return null;
+        }        
+        
     }
      
      public ResultSet relatorioFornecedor() {
@@ -102,29 +118,22 @@ public class Relatorio {
         }
         return rs;
     }
-     public ResultSet relatorioProduto() {
-        String sql = "SELECT \n" +
-"    p.codProduto, \n" +
-"    p.nomeProduto, \n" +
-"    p.precoCusto, \n" +
-"    p.precoVenda, \n" +
-"    p.quantidadeEstoque, \n" +
-"    f.nome AS nomeFornecedor, \n" +
-"    m.nome AS nomeMarca \n" +
-"FROM \n" +
-"    produto AS p\n" +
-"INNER JOIN \n" +
-"    fornecedor AS f ON p.codFornecedor = f.codFornecedor\n" +
-"INNER JOIN \n" +
-"    marca AS m ON p.codMarca = m.codMarca;";
-        ResultSet rs=null;
+     
+     public ResultSet relatorioProduto(double PrecoMinimo,double PrecoMaximo) {
+        String sql = "SELECT p.codProduto,  p.nomeProduto,p.precoCusto, p.precoVenda, p.quantidadeEstoque, f.nome AS nomeFornecedor, m.nome AS nomeMarca FROM  produto AS p\n" +
+                     "INNER JOIN  fornecedor AS f ON p.codFornecedor = f.codFornecedor INNER JOIN  marca AS m ON p.codMarca = m.codMarca WHERE  p.precoVenda BETWEEN ? AND ?;";
         try {
             PreparedStatement pst = Conexao.getPreparedStatement(sql);
-            rs = pst.executeQuery();
+            pst.setDouble(1, PrecoMinimo); // Defina o valor do primeiro parâmetro
+            pst.setDouble(2, PrecoMaximo); // Defina o valor do segundo parâmetro
+            ResultSet rs = pst.executeQuery();
+            System.out.println("idade minima: " + PrecoMinimo);
+            System.out.println("idade maxima: " + PrecoMaximo);
+            return rs;
         } catch (SQLException e) {
             System.out.println("Erro de SQL: " + e.getMessage());
-        }
-        return rs;
+            return null;
+        }     
     }
      
      public ResultSet relatorioTurno() {

@@ -14,7 +14,7 @@ import java.util.Date;
  * @author 13480309682
  */
 public class ConverteData {
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     Calendar cal = Calendar.getInstance();
     
     SimpleDateFormat mhdm = new SimpleDateFormat("mm:kk dd/MM/yyyy");
